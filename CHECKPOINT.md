@@ -39,6 +39,9 @@ Static site, no build step. CDN deps: GSAP 3.12.5 + ScrollTrigger, Lenis smooth 
 - ROUND 14: air max (10rem section heads, contained 1440px grids, taller product media 600px
   + hover zoom) + product obsession (announce bar → shop, hero price button flash-scrolls to
   the exact product card, look switcher carries product ids).
+- ROUND 15: product push (Buendia champ-pick card → eclipse flash, sticky mobile shop bar,
+  data-flash delegation) + full phone audit (460px hero figure, compact cards/timers/ticket/
+  modal, wrapped announce, single-col perks, footer clearance for sticky bar).
 
 ## Known quirks / watch-outs
 - Edit tool sometimes misreports success/failure: ALWAYS re-grep after edits.

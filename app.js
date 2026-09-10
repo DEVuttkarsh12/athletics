@@ -352,6 +352,9 @@ gsap.utils.toArray('.craft-list li').forEach((li,i)=>{
 gsap.fromTo('.athlete-photo',{clipPath:'inset(0% 0% 100% 0% round 24px)'},{clipPath:'inset(0% 0% 0% 0% round 24px)',duration:1.3,ease:'power4.inOut',
   scrollTrigger:{trigger:'.athlete-photo',start:'top 80%'}});
 gsap.from('.athlete-copy blockquote',{x:50,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.athlete-copy',start:'top 75%'}});
+gsap.from('.champ-pick',{y:36,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.athlete-copy',start:'top 65%'}});
+const sticky=document.getElementById('stickyShop');
+if(sticky){ScrollTrigger.create({trigger:'#drop',start:'top 85%',onEnter:()=>sticky.classList.add('show'),onLeaveBack:()=>sticky.classList.remove('show')});}
 /* athlete bg drift */
 gsap.to('.athlete-bg',{xPercent:-12,ease:'none',scrollTrigger:{trigger:'.athlete',start:'top bottom',end:'bottom top',scrub:true}});
 /* reviews: drift + velocity skew on all marquees */
@@ -413,6 +416,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape'){closeModals();}});
 document.addEventListener('click',e=>{
   const q=e.target.closest('[data-quiz]'); if(q){e.preventDefault();startQuiz();openModal('quizModal');return;}
   const s=e.target.closest('[data-size]'); if(s){e.preventDefault();openModal('sizeModal');return;}
+  const f=e.target.closest('[data-flash]'); if(f){flashShop(f.dataset.flash);return;}
   if(e.target.closest('[data-close]')) closeModals();
 });
 /* quiz */
