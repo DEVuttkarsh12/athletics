@@ -36,6 +36,9 @@ Static site, no build step. CDN deps: GSAP 3.12.5 + ScrollTrigger, Lenis smooth 
 - ROUND 13 direction (client): spacious over congested — roomy section padding/gaps, tall
   product media (520px), hero side-rails removed, serie cards deep-link into filtered shop,
   fabric spec line on every product card.
+- ROUND 14: air max (10rem section heads, contained 1440px grids, taller product media 600px
+  + hover zoom) + product obsession (announce bar → shop, hero price button flash-scrolls to
+  the exact product card, look switcher carries product ids).
 
 ## Known quirks / watch-outs
 - Edit tool sometimes misreports success/failure: ALWAYS re-grep after edits.

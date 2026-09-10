@@ -480,9 +480,9 @@ document.querySelectorAll('[data-tilt]').forEach(card=>{
 
 /* ---------- HERO LOOK SWITCHER ---------- */
 const LOOKS=[
-  {img:'https://aureliusathletics.com/cdn/shop/files/20251006SSM-47_8124731f-0add-4158-8be2-49820bdac515.jpg?v=1759965061&width=1000',name:'THUNDER WAVE — PINK',short:'THUNDER WAVE',look:'01'},
-  {img:'https://aureliusathletics.com/cdn/shop/files/20251006SSM-36.jpg?v=1759965888&width=1000',name:'THUNDER WAVE — NEON BLUE',short:'THUNDER WAVE',look:'02'},
-  {img:'https://aureliusathletics.com/cdn/shop/files/20251006SSM-04.jpg?v=1760169787&width=1000',name:'ECLIPSE — RED / BLACK',short:'ECLIPSE',look:'03'},
+  {img:'https://aureliusathletics.com/cdn/shop/files/20251006SSM-47_8124731f-0add-4158-8be2-49820bdac515.jpg?v=1759965061&width=1000',name:'THUNDER WAVE — PINK',short:'THUNDER WAVE',look:'01',pid:'thunder-pink'},
+  {img:'https://aureliusathletics.com/cdn/shop/files/20251006SSM-36.jpg?v=1759965888&width=1000',name:'THUNDER WAVE — NEON BLUE',short:'THUNDER WAVE',look:'02',pid:'thunder-blue'},
+  {img:'https://aureliusathletics.com/cdn/shop/files/20251006SSM-04.jpg?v=1760169787&width=1000',name:'ECLIPSE — RED / BLACK',short:'ECLIPSE',look:'03',pid:'eclipse-red'},
 ];
 LOOKS.forEach(l=>{const im=new Image();im.src=l.img;});
 let curLook=1;
@@ -494,6 +494,7 @@ function setLook(i){
     document.getElementById('archTop').textContent=LOOKS[i].name;
     document.getElementById('lookNum').textContent=LOOKS[i].look;
     document.getElementById('lookName').textContent=LOOKS[i].short;
+    document.getElementById('archPrice').dataset.pid=LOOKS[i].pid;
     document.querySelector('.fig-num').textContent=LOOKS[i].look;
     gsap.to('#heroImg',{opacity:1,duration:.5,ease:'power2.out'});
   }});
@@ -507,6 +508,20 @@ document.addEventListener('click',e=>{
   const st=e.target.closest('.fig-thumbs [data-step]');
   if(st){setLook(curLook+parseInt(st.dataset.step,10));}
 });
+
+/* hero price jumps to the exact product card */
+function flashShop(pid){
+  const prod=PRODUCTS.find(p=>p.id===pid); if(!prod) return;
+  document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('active',x.dataset.filter===prod.cat));
+  renderProducts(prod.cat,true);
+  const shop=document.getElementById('shop');
+  if(lenis) lenis.scrollTo(shop,{offset:-96,duration:1.4}); else shop.scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>{
+    const card=document.querySelector('.product[data-id="'+pid+'"]');
+    if(card){card.classList.add('flash');setTimeout(()=>card.classList.remove('flash'),3000);}
+  },900);
+}
+document.getElementById('archPrice').addEventListener('click',()=>flashShop(document.getElementById('archPrice').dataset.pid));
 
 document.getElementById('toTop').onclick=e=>{e.preventDefault();if(lenis)lenis.scrollTo(0,{duration:1.4});else scrollTo({top:0,behavior:'smooth'});};
 renderCart();
