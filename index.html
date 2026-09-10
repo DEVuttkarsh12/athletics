@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AURELIUS ATHLETICS — Built For The Stage</title>
+<meta name="description" content="Aurelius Athletics — Official board shorts of 4x Men's Physique Olympia Champion Jeremy Buendia. Thunder Wave & Eclipse Series." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23C8102E'/><text x='50' y='70' font-size='60' text-anchor='middle' font-family='Arial Black' font-weight='900' fill='white'>A</text></svg>" />
+</head>
+<body data-loading="true">
+
+<!-- NOISE -->
+<div class="noise" aria-hidden="true"></div>
+<!-- PROGRESS -->
+<div class="scroll-progress"><span id="progressBar"></span></div>
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"><span>VIEW</span></div>
+
+<!-- PRELOADER -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <span class="loader-mark">✦</span>
+    <span class="loader-brand">AURELIUS<sup>®</sup></span>
+    <span class="loader-sub">ATHLETICS — STAGE DIVISION</span>
+    <div class="loader-pct"><b id="loaderPct">000</b><i>%</i></div>
+    <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+    <span class="loader-status" id="loaderStatus">LOADING FABRIC / CUT / FIT</span>
+  </div>
+  <div class="loader-giant" aria-hidden="true"><span>AURELIUS</span><span class="fill" id="loaderFill">AURELIUS</span></div>
+  <div class="loader-curtain curtain-1"></div>
+  <div class="loader-curtain curtain-2"></div>
+</div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#access" class="announce"><span>✦ LAUNCH DROP LIVE — MEMBERS SHOP 48H BEFORE PUBLIC</span><b>CLAIM PASS →</b></a>
+  <div class="nav-main">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a href="#" class="logo"><span class="logo-mark">✦</span>AURELIUS<sup>®</sup></a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-phone">+1 916-776-0008</span>
+    <button class="icon-btn" id="searchBtn" aria-label="Search">⌕</button>
+    <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart">CART [<span id="cartCount">0</span>]</button>
+    <a href="#access" class="btn btn-volt btn-small magnetic"><span>EARLY ACCESS</span></a>
+  </div>
+  </div>
+</header>
+
+<!-- FULL MENU -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-bg-text">AURELIUS</div>
+  <button class="menu-close" id="menuClose">CLOSE ✕</button>
+  <nav class="menu-nav">
+    <a href="#drop"><b>01</b><span>THE DROP</span></a>
+    <a href="#series"><b>02</b><span>SERIES</span></a>
+    <a href="#shop"><b>03</b><span>SHOP SHORTS</span></a>
+    <a href="#craft"><b>04</b><span>ENGINEERED FIT</span></a>
+    <a href="#athlete"><b>05</b><span>JEREMY BUENDIA</span></a>
+    <a href="#faq"><b>06</b><span>PREP DESK FAQ</span></a>
+    <a href="#access"><b>07</b><span>EARLY ACCESS</span></a>
+  </nav>
+  <div class="menu-foot">
+    <span>theaureliusglobal@gmail.com</span>
+    <span>RANCHO CORDOVA — CA</span>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="menu-close" id="searchClose">CLOSE ✕</button>
+  <div class="search-box">
+    <label>SEARCH THE ARSENAL</label>
+    <input id="searchInput" placeholder="Try 'thunder' or 'eclipse'..." />
+    <div class="search-tags"><button>thunder wave</button><button>eclipse</button><button>board shorts</button><button>stage shorts</button></div>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="cart-scrim" id="cartScrim"></div>
+<aside class="cart" id="cartDrawer">
+  <div class="cart-head"><h3>YOUR KIT [ <span id="cartCount2">0</span> ]</h3><button id="cartClose">✕</button></div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <p class="big">EMPTY.</p>
+      <p>Your stage kit is waiting. Add some thunder.</p>
+      <a href="#shop" class="btn btn-volt" id="cartShopBtn"><span>SHOP THE DROP</span></a>
+    </div>
+  </div>
+  <div class="cart-foot">
+    <div class="row"><span>Subtotal</span><b id="cartTotal">Rs. 0</b></div>
+    <p class="muted">Shipping + taxes calculated at checkout. Stage-ready guarantee.</p>
+    <button class="btn btn-volt full"><span>CHECKOUT →</span></button>
+  </div>
+</aside>
+
+<div class="toast" id="toast">Added to kit ✓</div>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <canvas id="particles"></canvas>
+  <div class="hero-atlas" aria-hidden="true">AURELIUS</div>
+  <div class="hero-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="hero-spot" aria-hidden="true"></div>
+  <div class="hero-ember" aria-hidden="true"></div>
+
+  <div class="hero-side left">MAISON ATHLÉTIQUE — EST. MMXXV</div>
+  <div class="hero-side right">RANCHO CORDOVA — CALIFORNIA</div>
+
+  <div class="hero-grid">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="line"><span class="word" data-word>BUILT</span></span>
+        <span class="line serif-line"><span class="word" data-word>for the</span></span>
+        <span class="line outline"><span class="word" data-word>STAGE</span></span>
+      </h1>
+      <div class="hero-row">
+        <p class="hero-sub">Men's physique board shorts cut for the <b>V-taper</b> — sculpted leg, lock-waistband, fabric that drinks stage light. <b>Thunder Wave.</b> <b>Eclipse.</b></p>
+        <div class="hero-ctas">
+          <a href="#shop" class="btn btn-volt magnetic"><span>SHOP THE DROP →</span></a>
+          <a href="#craft" class="btn btn-ghost magnetic"><span>THE FIT</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <span class="fig-num" aria-hidden="true">02</span>
+      <div class="arch-wrap">
+      <div class="arch-ring" aria-hidden="true"></div>
+      <div class="arch-solid" aria-hidden="true"></div>
+      <div class="arch tilt" data-tilt>
+        <img src="https://aureliusathletics.com/cdn/shop/files/20251006SSM-36.jpg?v=1759965888&width=1000" alt="Aurelius stage short — Thunder Wave" id="heroImg" />
+        <div class="arch-shade"></div>
+        <div class="arch-top" id="archTop">THUNDER WAVE — NEON BLUE</div>
+        <div class="arch-bottom"><div><span>STAGE CUT</span><b>SCULPTED TAPER</b></div><span>Rs. 7,800 →</span></div>
+      </div>
+      <i class="tick t-tl" aria-hidden="true"></i><i class="tick t-tr" aria-hidden="true"></i><i class="tick t-bl" aria-hidden="true"></i><i class="tick t-br" aria-hidden="true"></i>
+      <div class="fig-cap"><span>LOOK <b id="lookNum">02</b> — <span id="lookName">THUNDER WAVE</span></span><div class="fig-thumbs"><button data-look="0" aria-label="Thunder Wave Pink"><img src="https://aureliusathletics.com/cdn/shop/files/20251006SSM-47_8124731f-0add-4158-8be2-49820bdac515.jpg?v=1759965061&width=200" alt=""/></button><button data-look="1" class="active" aria-label="Thunder Wave Blue"><img src="https://aureliusathletics.com/cdn/shop/files/20251006SSM-36.jpg?v=1759965888&width=200" alt=""/></button><button data-look="2" aria-label="Eclipse Red Black"><img src="https://aureliusathletics.com/cdn/shop/files/20251006SSM-04.jpg?v=1760169787&width=200" alt=""/></button></div></div>
+      </div>
+      <div class="hero-card card-fabric">
+        <img src="https://aureliusathletics.com/cdn/shop/files/Black_and_Red_Abstract_-Front.jpg?v=1760169787&width=600" alt="Eclipse fabric macro" />
+        <div><b>ECLIPSE WEAVE</b><span>SWEAT-PROOF / LIGHT-PROOF</span></div>
+      </div>
+      <div class="hero-card card-seal"><b>4×</b><span>MR. OLYMPIA<br/>APPROVED</span></div>
+      <div class="hero-badge" id="spinBadge">
+        <svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs><text><textPath href="#circ">STAGE READY • AURELIUS • STAGE READY •</textPath></text></svg>
+        <span>↓</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee marquee-volt" aria-hidden="true">
+  <div class="marquee-track">
+    <span>MAISON ATHLÉTIQUE ✦ OFFICIAL SHORTS OF JEREMY BUENDIA ✦ 4× MEN'S PHYSIQUE OLYMPIA ✦ THUNDER WAVE ✦ ECLIPSE ✦&nbsp;</span>
+    <span>MAISON ATHLÉTIQUE ✦ OFFICIAL SHORTS OF JEREMY BUENDIA ✦ 4× MEN'S PHYSIQUE OLYMPIA ✦ THUNDER WAVE ✦ ECLIPSE ✦&nbsp;</span>
+  </div>
+</div>
+
+<!-- ============ DROP / COUNTDOWN ============ -->
+<section class="drop" id="drop">
+  <div class="section-head">
+    <span class="index">01 — THE DROP</span>
+    <h2 class="split">THE OFFICIAL<br/><em>LAUNCH</em> IS HERE</h2>
+  </div>
+  <div class="drop-grid">
+    <div class="drop-card tilt" data-tilt>
+      <div class="drop-img"><img src="https://aureliusathletics.com/cdn/shop/files/banner2aurelius.png?v=1760165170&width=1200" alt="Thunder Wave" /></div>
+      <div class="drop-info"><span class="tag tag-blue">THUNDER WAVE SERIES</span><h3>LOUD. ELECTRIC.<br/>UNIGNORABLE.</h3><a href="#shop">SHOP PINK / BLUE →</a></div>
+    </div>
+    <div class="drop-timer">
+      <p class="label">DOORS CLOSE IN</p>
+      <div class="timer" id="timer">
+        <div><b id="dd">00</b><span>DAYS</span></div><i>:</i>
+        <div><b id="hh">00</b><span>HRS</span></div><i>:</i>
+        <div><b id="mm">00</b><span>MIN</span></div><i>:</i>
+        <div><b id="ss">00</b><span>SEC</span></div>
+      </div>
+      <p class="drop-copy">Early access members shop 48hrs before public. Limited runs. No restocks on launch colorways.</p>
+      <form class="inline-form" id="dropForm"><input type="email" required placeholder="your@email.com" /><button class="btn btn-dark"><span>GET ACCESS →</span></button></form>
+      <div class="avatars"><span style="background:#C8102E;color:#fff">JB</span><span style="background:#2E7FD6;color:#fff">MK</span><span style="background:#1A1410;color:#F5F0E6">AR</span><span style="background:#fff;color:#000">+</span><em>2,400+ athletes on list</em></div>
+    </div>
+    <div class="drop-card tilt" data-tilt>
+      <div class="drop-img"><img src="https://aureliusathletics.com/cdn/shop/files/banner1aurelius.png?v=1760165170&width=1200" alt="Eclipse" /></div>
+      <div class="drop-info"><span class="tag tag-red">ECLIPSE SERIES</span><h3>DARK. SHARP.<br/>LETHAL.</h3><a href="#shop">SHOP RED / BLACK →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEDERATION RULE STRIP -->
+<div class="rule-strip" aria-label="Federation compliance">
+  <span>NPC §2 — 2" ABOVE THE KNEE</span><i>✦</i><span>TAPERED LEG</span><i>✦</i><span>ZERO SPANDEX</span><i>✦</i><span>NUMBER-TAB READY</span><i>✦</i><span>WNBF 6–11" INSEAM</span><i>✦</i><span>IFBB OPAQUE</span>
+</div>
+
+<!-- BIG STATEMENT -->
+<section class="statement">
+  <p class="split">YOU DON'T WALK ON STAGE TO BLEND IN. <em>YOU WALK ON TO TAKE OVER.</em></p>
+</section>
+
+<!-- ============ SERIES HORIZONTAL ============ -->
+<section class="series" id="series">
+  <div class="section-head light">
+    <span class="index">02 — PICK YOUR POISON</span>
+    <h2 class="split">TWO SERIES.<br/>ZERO MERCY.</h2>
+  </div>
+  <div class="hscroll" id="hscroll">
+    <div class="hscroll-track" id="hscrollTrack">
+      <article class="serie-card" data-cursor="VIEW">
+        <img src="https://aureliusathletics.com/cdn/shop/files/20251006SSM-47_8124731f-0add-4158-8be2-49820bdac515.jpg?v=1759965061&width=1000" alt="Thunder Pink" />
+        <div class="serie-shade"></div>
+        <span class="serie-num">01</span>
+        <div class="serie-info"><span class="tag tag-pink">THUNDER WAVE — PINK</span><h3>NEON<br/>STATIC</h3><p>High-voltage pink surge. Built to pop under stage lights.</p><small class="psy">PSYCH — PINK READS FEARLESS INDIVIDUALITY.</small><a href="#shop" class="btn btn-volt btn-small"><span>SHOP NOW →</span></a></div>
+      </article>
+      <article class="serie-card" data-cursor="VIEW">
+        <img src="https://aureliusathletics.com/cdn/shop/files/20251006SSM-18.jpg?v=1759965888&width=1000" alt="Thunder Blue" />
+        <div class="serie-shade blue"></div>
+        <span class="serie-num">02</span>
+        <div class="serie-info"><span class="tag tag-blue">THUNDER WAVE — BLUE</span><h3>VOLT<br/>TIDE</h3><p>Deep ocean electric. Sharp taper, ruthless V-taper illusion.</p><small class="psy">PSYCH — BLUE READS CALM. WALK OUT BREATHING SLOW.</small><a href="#shop" class="btn btn-volt btn-small"><span>SHOP NOW →</span></a></div>
+      </article>
+      <article class="serie-card" data-cursor="VIEW">
+        <img src="https://aureliusathletics.com/cdn/shop/files/20251006SSM-04.jpg?v=1760169787&width=1000" alt="Eclipse Red" />
+        <div class="serie-shade red"></div>
+        <span class="serie-num">03</span>
+        <div class="serie-info"><span class="tag tag-red">ECLIPSE — RED / BLACK</span><h3>SOLAR<br/>ECLIPSE</h3><p>Blackout base, bloodline red. For killers who stay quiet.</p><small class="psy">PSYCH — RED READS DOMINANCE. RIVALS NOTICE FIRST.</small><a href="#shop" class="btn btn-volt btn-small"><span>SHOP NOW →</span></a></div>
+      </article>
+      <article class="serie-card end-card">
+        <span class="index">30 SECONDS — 3 QUESTIONS</span>
+        <h3>NOT SURE?<br/>TAKE THE<br/><em>FIT QUIZ →</em></h3>
+        <p>Waist, show date & federation. We prescribe your stage size — NPC, WNBF & IFBB checked.</p>
+        <button class="btn btn-dark" data-quiz><span>START QUIZ →</span></button>
+      </article>
+    </div>
+  </div>
+  <p class="hscroll-hint">← DRAG / SCROLL →</p>
+</section>
+
+<!-- ============ SHOP ============ -->
+<section class="shop" id="shop">
+  <div class="section-head">
+    <span class="index">03 — THE ARSENAL</span>
+    <div class="shop-head-row">
+      <h2 class="split">SHOP<br/>STAGE SHORTS</h2>
+      <div class="filters" id="filters">
+        <button class="active" data-filter="all">ALL [3]</button>
+        <button data-filter="thunder">THUNDER [2]</button>
+        <button data-filter="eclipse">ECLIPSE [1]</button>
+      </div>
+    </div>
+  </div>
+  <div class="products" id="products"></div>
+  <div class="perks">
+    <div><i>I</i><b>DISPATCHED IN 24–48 HRS</b><span>Tracked express, packed stage-ready. US, India + 40 countries.</span></div>
+    <div><i>II</i><b>STAGE-COMPLIANT CUT</b><span>NPC / WNBF / IFBB checked — 2" above knee, tapered, number-tab ready.</span></div>
+    <div><i>III</i><b>SECURE CHECKOUT</b><span>UPI, cards & PayPal. 256-bit encrypted, zero stored details.</span></div>
+    <div><i>IV</i><b>PREP SUPPORT 24×7</b><span>Real competitors on chat — sizing, peak week, tan questions.</span></div>
+  </div>
+</section>
+
+<!-- ============ CRAFT ============ -->
+<section class="craft" id="craft">
+  <div class="craft-sticky">
+    <div class="craft-media">
+      <img id="craftImg" src="https://aureliusathletics.com/cdn/shop/files/Black_and_Red_Abstract_-Front.jpg?v=1760169787&width=1000" alt="Craft detail" />
+      <div class="craft-badge">STAGE<br/>APPROVED ✓</div>
+    </div>
+    <div class="craft-copy">
+      <span class="index">04 — ENGINEERED FIT. STAGE FOCUSED.</span>
+      <h2 class="split">CUT FOR<br/>THE <em>V-TAPER.</em></h2>
+      <p>Performance 4-way stretch, zero-ride waistband, and a stage-length cut tested by a 4× Olympia champ. Every stitch exists to make your waist look smaller and your delts look illegal.</p>
+      <ul class="craft-list">
+        <li><b>01 — SCULPTED TAPER</b><span>Narrowed leg opening frames quads without flare.</span></li>
+        <li><b>02 — LOCK-WAISTBAND</b><span>Internal drawcord + silicone grip. Zero slip on twists.</span></li>
+        <li><b>03 — STAGE FABRIC</b><span>Sweat-proof, light-proof, tan-proof. Pops under LEDs.</span></li>
+        <li><b>04 — CHAMPION TESTED</b><span>Worn in prep by Jeremy Buendia. Not just endorsed.</span></li>
+      </ul>
+      <div class="craft-stats">
+        <div><b><span data-count="360">0</span>°</b><span>STRETCH</span></div>
+        <div><b><span data-count="30">0</span> SEC</b><span>STAGE LOCK*</span></div>
+        <div><b><span data-count="100">0</span>%</b><span>STAGE READY</span></div>
+      </div>
+      <p class="craft-note">* Silicone-grip waistband holds through your full 30-second center-stage presentation — the NPC maximum.</p>
+      <a href="#shop" class="btn btn-volt magnetic"><span>SHOP THE FIT →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ATHLETE ============ -->
+<section class="athlete" id="athlete">
+  <div class="athlete-bg">BUENDIA</div>
+  <div class="athlete-grid">
+    <div class="athlete-photo tilt" data-tilt>
+      <img src="https://aureliusathletics.com/cdn/shop/files/20251006SSM-36.jpg?v=1759965888&width=1000" alt="Jeremy Buendia" />
+      <div class="athlete-card"><span>4× MEN'S PHYSIQUE</span><b>MR. OLYMPIA</b></div>
+    </div>
+    <div class="athlete-copy">
+      <span class="index">05 — THE STANDARD</span>
+      <h2 class="split">WORN BY<br/>THE <em>BEST</em> EVER.</h2>
+      <blockquote>“I’ve worn every short on that stage. Nothing sat like this. Aurelius is my official short — period.”</blockquote>
+      <cite>— JEREMY BUENDIA, 4× MR. OLYMPIA</cite>
+      <div class="athlete-ctas">
+        <a href="#shop" class="btn btn-dark magnetic"><span>SHOP HIS SHORTS →</span></a>
+        <button class="btn btn-ghost dark magnetic" data-size><span>SIZE GUIDE ∎</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="section-head"><span class="index">06 — FROM THE TRENCHES</span><h2 class="split">ATHLETES<br/>TALK.</h2></div>
+  <div class="marquee marquee-cards"><div class="marquee-track" id="reviewTrack"></div></div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-head"><span class="index">07 — PREP DESK</span><h2 class="split">ASKED<br/>BACKSTAGE.</h2></div>
+  <div class="faq-list">
+    <div class="faq-item"><button class="faq-q"><b>01</b><span>ARE THEY LEGAL ON AN NPC / WNBF / IFBB STAGE?</span><i>+</i></button><div class="faq-a"><p>Yes. Cut to sit 1" below the navel and finish 2" above the knee with a tapered leg, zero spandex and manufacturer's mark only — inside NPC §2, WNBF 6–11" inseam and IFBB opaque-short rules. Your number tab pins clean at judging &amp; finals.</p></div></div>
+    <div class="faq-item"><button class="faq-q"><b>02</b><span>THUNDER WAVE OR ECLIPSE — WHICH COLOR DO I PICK?</span><i>+</i></button><div class="faq-a"><p>Pick the energy you project. Red reads dominance — athletes in red are perceived as more aggressive and dominant. Blue reads calm focus for a steady presentation. Pink reads fearless individuality under LEDs. Gold trim reads victory. The cut is identical; the psychology isn't.</p></div></div>
+    <div class="faq-item"><button class="faq-q"><b>03</b><span>HOW DOES SIZING RUN AT PEAK WEEK?</span><i>+</i></button><div class="faq-a"><p>Stage fit runs snug by design. Measure your waist 1" below the navel one week out and match the size guide — between sizes, size up, the silicone-grip waistband holds the taper. Take the 30-second fit quiz for a prescription.</p></div></div>
+    <div class="faq-item"><button class="faq-q"><b>04</b><span>TAN, OIL &amp; SWEAT — HOW DO I WASH THEM?</span><i>+</i></button><div class="faq-a"><p>Cold rinse right after stage, mild detergent, hang dry. No bleach, no softener, no dryer. The weave is tan-proof, sweat-proof and light-proof — built to survive show day and still pop next prep.</p></div></div>
+    <div class="faq-item"><button class="faq-q"><b>05</b><span>SHIPPING &amp; RESTOCKS?</span><i>+</i></button><div class="faq-a"><p>Dispatched in 24–48 hrs, tracked express to the US, India + 40 countries. Launch colorways are limited runs — when a print sells out, it's retired, not restocked. Early-access members shop 48 hrs before public.</p></div></div>
+  </div>
+</section>
+
+<!-- ACCESS -->
+<section class="access" id="access">
+  <div class="access-atlas" aria-hidden="true">BACKSTAGE</div>
+  <div class="access-inner">
+    <div class="access-grid">
+      <div class="access-copy">
+        <span class="index">08 — EARLY ACCESS</span>
+        <h2 class="split">GET IN BEFORE<br/><em>THE CROWD.</em></h2>
+        <p>One pass. First pick of every launch colorway before the public ever sees it. Join 2,400+ athletes already holding theirs.</p>
+        <ul class="access-perks">
+          <li><b>48H</b><span>Early window before public release</span></li>
+          <li><b>VOTE</b><span>Private ballots on next colorways</span></li>
+          <li><b>PLAYBOOK</b><span>Free stage-prep guide with entry</span></li>
+          <li><b>PRICE</b><span>Founding-member pricing, locked</span></li>
+        </ul>
+        <p class="access-proof">★★★★★ <b>4.9</b> — from 600+ competitors on early drops</p>
+      </div>
+      <div class="ticket tilt" data-tilt>
+        <div class="ticket-top"><span>✦ BACKSTAGE PASS</span><span>CRIMSON TIER</span></div>
+        <h3>ADMIT ONE<br/>TO THE DROP.</h3>
+        <form class="ticket-form" id="accessForm">
+          <label for="accessEmail">EMAIL FOR ENTRY</label>
+          <div class="ticket-row">
+            <input id="accessEmail" type="email" required placeholder="your@email.com" />
+            <button class="btn btn-volt" aria-label="Claim spot"><span>→</span></button>
+          </div>
+        </form>
+        <div class="ticket-perf" aria-hidden="true"></div>
+        <div class="ticket-stub">
+          <div class="stub-meta"><span>48H EARLY</span><span>FOUNDING 2400</span></div>
+          <span class="serial" id="passSerial">N° AA-2026-0000</span>
+        </div>
+      </div>
+    </div>
+    <span class="fine">No spam. Only drops, restocks & stage tips. Unsubscribe anytime.</span>
+  </div>
+  <div class="access-glow"></div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="foot-cta">
+    <h3>THE STAGE IS <em>WAITING.</em></h3>
+    <a href="#shop" class="btn btn-volt magnetic"><span>SHOP THE DROP →</span></a>
+  </div>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a href="#top" class="logo foot-logo"><span class="logo-mark">✦</span>AURELIUS<sup>®</sup></a>
+      <p>Stage board shorts for men's physique — cut for the V-taper, checked against every federation rulebook.</p>
+      <p>12185 Encanto Way,<br/>Rancho Cordova, CA 95742</p>
+      <p><a href="tel:+19167760008">+1 916-776-0008</a><br/><a href="mailto:theaureliusglobal@gmail.com">theaureliusglobal@gmail.com</a></p>
+      <div class="socials"><a href="#">IG ↗</a><a href="#">YT ↗</a><a href="#">X ↗</a><a href="#">FB ↗</a></div>
+    </div>
+    <div><h4>SHOP</h4><a href="#shop">Thunder Wave Pink</a><a href="#shop">Thunder Wave Blue</a><a href="#shop">Eclipse Red/Black</a><a href="#shop">All shorts</a></div>
+    <div><h4>HOUSE</h4><a href="#craft">Engineered fit</a><a href="#athlete">Jeremy Buendia</a><a href="#reviews">Athletes talk</a><a href="#faq">Prep desk FAQ</a></div>
+    <div><h4>SUPPORT</h4><button class="foot-link" data-size>Size guide</button><button class="foot-link" data-quiz>Fit quiz</button><a href="#access">Early access</a><a href="mailto:theaureliusglobal@gmail.com">Contact us</a></div>
+    <div><h4>HOUSE RULES</h4><p class="rules">Limited runs.<br/>No restocks on sold-out prints.<br/>Stage-compliant, always.</p><a href="#top" id="toTop">BACK TO TOP ↑</a></div>
+  </div>
+  <div class="pay-row"><span>SECURE CHECKOUT</span><div><i>UPI</i><i>VISA</i><i>MASTERCARD</i><i>PAYPAL</i><i>256-BIT</i></div></div>
+  <div class="foot-giant" aria-hidden="true">AURELIUS</div>
+  <div class="foot-base"><span>© 2026 AURELIUS ATHLETICS — ALL RIGHTS RESERVED</span><span>NPC ✦ WNBF ✦ IFBB — STAGE COMPLIANT</span></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="./app.js"></script>
+
+<!-- QUIZ MODAL -->
+<div class="modal-scrim" id="modalScrim"></div>
+<div class="modal" id="quizModal" role="dialog" aria-modal="true" aria-label="Stage fit finder">
+  <button class="modal-x" data-close>✕</button>
+  <span class="index">STAGE FIT FINDER — 30 SEC</span>
+  <h3 id="quizQ">Where's your waist 1" below the navel?</h3>
+  <div class="quiz-opts" id="quizOpts"></div>
+  <div class="quiz-progress"><span id="quizBar"></span></div>
+  <button class="quiz-back" id="quizBack">← BACK</button>
+</div>
+
+<!-- SIZE MODAL -->
+<div class="modal" id="sizeModal" role="dialog" aria-modal="true" aria-label="Size guide">
+  <button class="modal-x" data-close>✕</button>
+  <span class="index">SIZE GUIDE — STAGE CUT</span>
+  <h3>MEASURE 1" BELOW<br/>THE NAVEL.</h3>
+  <table class="size-table">
+    <tr><th>SIZE</th><th>WAIST</th><th>BEST FOR</th></tr>
+    <tr><td><b>S</b></td><td>28–30"</td><td>First-timers, tightest taper</td></tr>
+    <tr><td><b>M</b></td><td>31–33"</td><td>Most stage weights</td></tr>
+    <tr><td><b>L</b></td><td>34–36"</td><td>Heavyweights, relaxed stage fit</td></tr>
+  </table>
+  <ul class="size-notes">
+    <li>✦ Between sizes? Size up — the grip waistband holds the taper.</li>
+    <li>✦ Leg finishes 2" above the knee, tapered. NPC §2 checked.</li>
+    <li>✦ Measure one week out, not twelve.</li>
+  </ul>
+  <button class="btn btn-volt full" data-quiz><span>STILL UNSURE? TAKE THE QUIZ →</span></button>
+</div>
+</body>
+</html>
