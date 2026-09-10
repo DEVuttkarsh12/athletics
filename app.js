@@ -222,6 +222,7 @@ function renderProducts(filter='all',instant=false){
         <span class="tag ${p.cat==='thunder'?'tag-blue':'tag-red'}">${p.cat==='thunder'?'THUNDER WAVE':'ECLIPSE'} SERIES</span>
         <h3>${p.name}</h3>
         <div class="p-price"><b>${fmt(p.price)}</b><s>${fmt(p.mrp)}</s><i>SAVE 15%</i></div>
+        <div class="p-spec">4-WAY STRETCH ✦ NPC-CUT ✦ SWEAT-PROOF</div>
         <div class="sizes">${p.sizes.map((s,i)=>`<button class="${(selected[p.id]||'M')===s?'sel':''}" onclick="pickSize('${p.id}','${s}',this)">${s}</button>`).join('')}</div>
         <button class="p-guide" data-size>SIZE GUIDE ∎ — STAGE CUT</button>
         <button class="p-add" onclick="addToCart('${p.id}','${selected[p.id]||'M'}')">ADD TO KIT →</button>
@@ -239,6 +240,14 @@ renderProducts();
 document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('active'));
   b.classList.add('active'); renderProducts(b.dataset.filter,true);
+});
+/* series cards jump straight into a filtered shop */
+document.querySelectorAll('.serie-card:not(.end-card) .btn').forEach((btn,idx)=>{
+  btn.addEventListener('click',()=>{
+    const f=idx<2?'thunder':'eclipse';
+    document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('active',x.dataset.filter===f));
+    renderProducts(f,true);
+  });
 });
 
 /* ---------- COUNTDOWN (evergreen 9d) ---------- */

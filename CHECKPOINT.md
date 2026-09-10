@@ -33,6 +33,9 @@ Static site, no build step. CDN deps: GSAP 3.12.5 + ScrollTrigger, Lenis smooth 
   figure (crimson plate, ring, crop ticks, LOOK caption + working 3-look switcher + arrows),
   pinned horizontal series, scrub-ignited statement, backstage-pass ticket (flat, ink offset),
   fit-quiz modal, size-guide modal, prep-desk FAQ, federation rule strip.
+- ROUND 13 direction (client): spacious over congested — roomy section padding/gaps, tall
+  product media (520px), hero side-rails removed, serie cards deep-link into filtered shop,
+  fabric spec line on every product card.
 
 ## Known quirks / watch-outs
 - Edit tool sometimes misreports success/failure: ALWAYS re-grep after edits.
