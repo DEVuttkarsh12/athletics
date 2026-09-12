@@ -126,13 +126,16 @@ function heroIntro(){
     .from(['.fig-num','.fig-cap','.tick'],{opacity:0,duration:.9,stagger:.07},1.15);
   return tl;
 }
-/* hero parallax on mouse + scroll */
+/* hero parallax on mouse + scroll (fine pointers only) */
 const heroImg=document.getElementById('heroImg');
+const finePointer=matchMedia('(hover:hover) and (pointer:fine)').matches;
+if(finePointer){
 addEventListener('mousemove',e=>{
   const x=(e.clientX/innerWidth-.5), y=(e.clientY/innerHeight-.5);
   gsap.to('.hero-content',{x:x*18,y:y*12,duration:.8,ease:'power2.out'});
   gsap.to('#heroImg',{x:x*-26,duration:1,ease:'power2.out'});
 });
+}
 gsap.to('#heroImg',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 
 /* ---------- PARTICLES ---------- */
@@ -140,7 +143,7 @@ const cv=document.getElementById('particles'), ctx=cv.getContext('2d');
 let pts=[];
 function sizeCv(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}
 sizeCv(); addEventListener('resize',sizeCv);
-for(let i=0;i<60;i++){const pick=Math.random();pts.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.4,s:Math.random()*.0007+.00015,o:Math.random()*.28+.12,c:pick>.75?'200,16,46':pick>.4?'142,12,26':'26,20,16'});}
+for(let i=0;i<(innerWidth<640?28:60);i++){const pick=Math.random();pts.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.4,s:Math.random()*.0007+.00015,o:Math.random()*.28+.12,c:pick>.75?'200,16,46':pick>.4?'142,12,26':'26,20,16'});}
 (function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   pts.forEach(pt=>{pt.y-=pt.s;if(pt.y<0)pt.y=1;
@@ -354,7 +357,16 @@ gsap.fromTo('.athlete-photo',{clipPath:'inset(0% 0% 100% 0% round 24px)'},{clipP
 gsap.from('.athlete-copy blockquote',{x:50,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.athlete-copy',start:'top 75%'}});
 gsap.from('.champ-pick',{y:36,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.athlete-copy',start:'top 65%'}});
 const sticky=document.getElementById('stickyShop');
-if(sticky){ScrollTrigger.create({trigger:'#drop',start:'top 85%',onEnter:()=>sticky.classList.add('show'),onLeaveBack:()=>sticky.classList.remove('show')});}
+if(sticky){
+  ScrollTrigger.create({trigger:'#drop',start:'top 85%',onEnter:()=>sticky.classList.add('show'),onLeaveBack:()=>sticky.classList.remove('show')});
+  /* keep the sticky bar off the ticket + footer so it never covers them */
+  ['#access','.footer'].forEach(sel=>{
+    const el=document.querySelector(sel);
+    if(el) ScrollTrigger.create({trigger:el,start:'top 88%',end:'bottom top',
+      onEnter:()=>sticky.classList.add('hide'),onEnterBack:()=>sticky.classList.add('hide'),
+      onLeaveBack:()=>sticky.classList.remove('hide'),onLeave:()=>sticky.classList.remove('hide')});
+  });
+}
 /* athlete bg drift */
 gsap.to('.athlete-bg',{xPercent:-12,ease:'none',scrollTrigger:{trigger:'.athlete',start:'top bottom',end:'bottom top',scrub:true}});
 /* reviews: drift + velocity skew on all marquees */
@@ -372,16 +384,22 @@ gsap.from('.foot-top > div',{y:36,opacity:0,duration:.8,stagger:.08,ease:'power3
 gsap.from('.pay-row',{opacity:0,y:20,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.pay-row',start:'top 92%'}});
 gsap.from('.rule-strip',{opacity:0,y:20,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.rule-strip',start:'top 92%'}});
 gsap.from('.perks div',{y:50,opacity:0,duration:.9,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.perks',start:'top 88%'}});
-gsap.from('.faq-item',{y:40,opacity:0,duration:.8,stagger:.08,ease:'power3.out',scrollTrigger:{trigger:'.faq-list',start:'top 85%'}});
+gsap.from('.faq-item',{y:40,opacity:0,duration:.8,stagger:.08,ease:'power3.out',clearProps:'transform,opacity',scrollTrigger:{trigger:'.faq-list',start:'top 88%',once:true}});
 /* access: char-split headline (owns the h2 — no competing tweens) + group rise */
 document.querySelectorAll('.access-inner h2').forEach(h2=>{
   const frag=document.createDocumentFragment();
   const walk=(node,parent)=>{
     node.childNodes.forEach(n=>{
       if(n.nodeType===3){
-        n.textContent.split('').forEach(c=>{
-          if(c===' '){parent.appendChild(document.createTextNode(' '));}
-          else{const s=document.createElement('span');s.className='ch';s.textContent=c;parent.appendChild(s);}
+        /* group chars per word so lines wrap between words, never mid-word */
+        n.textContent.split(/(\s+)/).forEach(part=>{
+          if(!part) return;
+          if(/^\s+$/.test(part)){parent.appendChild(document.createTextNode(' '));}
+          else{
+            const w=document.createElement('span');w.className='wd';
+            [...part].forEach(c=>{const s=document.createElement('span');s.className='ch';s.textContent=c;w.appendChild(s);});
+            parent.appendChild(w);
+          }
         });
       }else if(n.tagName==='BR'){parent.appendChild(document.createElement('br'));}
       else{const clone=n.cloneNode(false);parent.appendChild(clone);walk(n,clone);}
@@ -458,18 +476,35 @@ function renderQuizResult(){
     <div class="quiz-result"><b>${size}</b><p>${fed}<br>${urg}</p></div>
     ${PRODUCTS.map(p=>`<button onclick="addToCart('${p.id}','${size}');closeModals();">ADD ${p.name.split('—')[1]||p.name} (${size}) →</button>`).join('')}`;
 }
-/* faq */
-document.querySelectorAll('.faq-item').forEach((item,i)=>{
-  const a=item.querySelector('.faq-a');
-  if(i===0){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
-  item.querySelector('.faq-q').addEventListener('click',()=>{
-    const open=item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(o=>{o.classList.remove('open');o.querySelector('.faq-a').style.maxHeight=0;});
-    if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
+/* faq — class-only toggle (CSS grid 0fr/1fr handles height, no scrollHeight math) */
+(function initFaq(){
+  const items=[...document.querySelectorAll('.faq-item')];
+  if(!items.length) return;
+  // ensure one open by default (matches HTML)
+  if(!items.some(it=>it.classList.contains('open'))) items[0].classList.add('open');
+  items.forEach(it=>{
+    const btn=it.querySelector('.faq-q');
+    btn.setAttribute('aria-expanded', it.classList.contains('open') ? 'true' : 'false');
   });
-});
+  document.querySelector('.faq-list').addEventListener('click',e=>{
+    const btn=e.target.closest('.faq-q');
+    if(!btn) return;
+    const item=btn.closest('.faq-item');
+    const wasOpen=item.classList.contains('open');
+    items.forEach(it=>{
+      it.classList.remove('open');
+      it.querySelector('.faq-q').setAttribute('aria-expanded','false');
+    });
+    if(!wasOpen){
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+    }
+    if(typeof ScrollTrigger!=='undefined') setTimeout(()=>ScrollTrigger.refresh(),550);
+  });
+})();
 
-/* ---------- MAGNETIC + TILT ---------- */
+/* ---------- MAGNETIC + TILT (fine pointers only) ---------- */
+if(finePointer){
 document.querySelectorAll('.magnetic').forEach(el=>{
   el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();
     gsap.to(el,{x:(e.clientX-r.left-r.width/2)*.25,y:(e.clientY-r.top-r.height/2)*.25,duration:.4});});
@@ -481,6 +516,7 @@ document.querySelectorAll('[data-tilt]').forEach(card=>{
     card.style.transform=`perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;});
   card.addEventListener('mouseleave',()=>card.style.transform='perspective(900px) rotateY(0) rotateX(0)');
 });
+}
 
 /* ---------- HERO LOOK SWITCHER ---------- */
 const LOOKS=[
@@ -504,8 +540,7 @@ function setLook(i){
   }});
 }
 const thumbsBox=document.querySelector('.fig-thumbs');
-thumbsBox.insertAdjacentHTML('afterbegin','<button class="fig-arrow" data-step="-1" aria-label="Previous look">←</button>');
-thumbsBox.insertAdjacentHTML('beforeend','<button class="fig-arrow" data-step="1" aria-label="Next look">→</button>');
+/* arrows live in HTML (robust without JS injection); delegation below handles clicks */
 document.addEventListener('click',e=>{
   const t=e.target.closest('.fig-thumbs [data-look]');
   if(t){setLook(+t.dataset.look);return;}

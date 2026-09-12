@@ -342,13 +342,15 @@ body.link-hover .cursor-ring{transform:translate(-50%,-50%) scale(1)}
 .faq-list{max-width:900px;margin:0 auto;padding:0 4vw;display:flex;flex-direction:column}
 .faq-item{border-top:1px solid var(--line)}
 .faq-item:last-child{border-bottom:1px solid var(--line)}
-.faq-q{width:100%;background:none;border:0;color:var(--paper);display:flex;align-items:center;gap:1.4rem;padding:1.5rem .2rem;text-align:left}
+.faq-q{width:100%;background:none;border:0;color:var(--paper);display:flex;align-items:center;gap:1.4rem;padding:1.5rem .2rem;text-align:left;cursor:pointer;min-height:64px}
 .faq-q b{font-family:var(--font-serif);font-style:italic;font-weight:400;color:var(--volt);font-size:1rem;min-width:2rem}
 .faq-q span{flex:1;font-size:.92rem;font-weight:800;letter-spacing:.06em}
-.faq-q i{font-style:normal;font-size:1.3rem;color:var(--volt);transition:transform .35s}
+.faq-q i{font-style:normal;font-size:1.3rem;color:var(--volt);transition:transform .35s;flex-shrink:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center}
 .faq-item.open .faq-q i{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.65,0,.35,1)}
-.faq-a p{color:var(--muted);line-height:1.75;font-size:.93rem;padding:0 .2rem 1.6rem 3.4rem;max-width:640px}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.65,0,.35,1)}
+.faq-item.open .faq-a{grid-template-rows:1fr}
+.faq-a>p{overflow:hidden;min-height:0;margin:0;color:var(--muted);line-height:1.75;font-size:.93rem;padding:0 .2rem 0 3.4rem;max-width:640px;opacity:0;transform:translateY(-6px);transition:opacity .35s ease,transform .35s ease,padding .35s ease}
+.faq-item.open .faq-a>p{opacity:1;transform:none;padding-bottom:1.6rem}
 .faq-a p b,.faq-a p strong{color:var(--paper)}
 
 /* MODALS */
@@ -1012,4 +1014,208 @@ body{color:var(--ink)}
 .loader-pct b{font-variant-numeric:tabular-nums}
 @media(max-width:1000px){
   .arch{height:560px}
+}
+
+/* ===== ROUND 16: TRUE MULTI-DEVICE RESPONSIVE (360px → 4K) ===== */
+html,body{overflow-x:clip;max-width:100vw}
+.hero-atlas,.athlete-bg,.access-atlas,.foot-giant,.menu-bg-text,.loader-giant{max-width:100vw;overflow:hidden}
+img{height:auto}
+.p-media img,.drop-img img,.serie-card img,.craft-media img,.athlete-photo img,.arch img,.card-fabric img{height:100%}
+
+/* announce: never clip wrapped lines, still collapses on scroll */
+.announce{max-height:80px;text-align:center;line-height:1.5}
+.nav.scrolled .announce{max-height:0;opacity:0;padding-top:0;padding-bottom:0}
+
+/* tablet: keep single-col cards contained, not full-bleed stretched */
+@media(max-width:1000px){
+  .drop-card,.drop-timer{max-width:640px;margin-left:auto;margin-right:auto;width:100%}
+  .craft-media{max-width:640px;margin-left:auto;margin-right:auto;width:100%}
+  .athlete-photo{max-width:640px;margin-left:auto;margin-right:auto;width:100%}
+  .section-head{padding:6rem 5vw 2.5rem}
+}
+
+/* h-scroll snap for touch */
+.hscroll{scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.serie-card,.end-card{scroll-snap-align:center}
+.review-card{width:min(380px,84vw)}
+
+/* filters scroll instead of squeeze */
+.filters{max-width:100%;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters button{white-space:nowrap;flex-shrink:0}
+
+/* craft stats wrap, faq breathing */
+.craft-stats{flex-wrap:wrap;gap:1.5rem 2.5rem}
+.craft-stats>div{min-width:96px}
+
+@media(max-width:640px){
+  .section-head{padding:5rem 5vw 2rem}
+  .section-head h2{font-size:clamp(2.5rem,12vw,3.2rem)}
+  .nav-main{padding:.7rem .9rem}
+  .nav-right{gap:.5rem}
+  .logo{font-size:1.1rem}
+  .icon-btn{padding:.55rem .85rem;font-size:.7rem}
+  .menu-btn{padding:.6rem .2rem}
+  .hero-grid{padding-top:6.5rem;gap:1.8rem}
+  .hero-visual{padding-bottom:2.6rem}
+  .drop-img{height:240px}
+  .drop-info h3{font-size:1.7rem}
+  .drop-timer{padding:1.5rem 1.1rem}
+  .serie-card{width:min(420px,86vw)}
+  .menu-foot{flex-wrap:wrap;gap:.5rem 1.2rem}
+  .faq-q{gap:.9rem;padding:1.2rem .2rem}
+  .faq-a p{padding:0 .2rem 1.4rem .2rem}
+  .access{padding:5rem 5vw}
+  .access-grid{gap:2.5rem}
+  .ticket-top{white-space:normal;flex-wrap:wrap;gap:.4rem 1rem}
+  .stub-meta span,.serial{white-space:normal}
+  .foot-cta h3{font-size:clamp(2rem,10vw,2.6rem)}
+  .modal{padding:1.6rem 1.2rem}
+  .cart-item h4{font-size:.82rem}
+}
+
+/* small phones: 480px and below */
+@media(max-width:480px){
+  .hero-title{font-size:clamp(2.6rem,15vw,3.4rem)}
+  .hero-sub{font-size:.95rem}
+  .hero-ctas{display:grid;grid-template-columns:1fr;width:100%}
+  .hero-ctas .btn{width:100%}
+  .btn{padding:.95rem 1.4rem;font-size:.8rem}
+  .arch{height:380px;width:min(520px,86vw)}
+  .hero-visual{min-height:0}
+  .arch-top{font-size:.62rem;padding:.45rem .8rem;max-width:92%;overflow:hidden;text-overflow:ellipsis}
+  .arch-bottom{padding:.65rem .8rem;gap:.6rem}
+  .card-fabric{width:132px;bottom:52px;left:2px}
+  .card-fabric img{height:76px}
+  .card-seal{top:48px;right:2px;padding:.6rem .8rem}
+  .fig-cap{font-size:.6rem;bottom:-32px;gap:.3rem}
+  .timer{gap:.35rem}
+  .timer div{min-width:0;flex:1;padding:.6rem .2rem;border-radius:12px}
+  .timer b{font-size:1.4rem}
+  .timer i{font-size:1rem}
+  .inline-form input{padding:.8rem 1rem}
+  .drop-img{height:210px}
+  .drop-info{padding:1.2rem}
+  .p-media{height:360px}
+  .p-body{padding:1.1rem}
+  .p-body h3{font-size:1.25rem}
+  .serie-card{height:440px}
+  .serie-info{padding:1.3rem}
+  .serie-info h3{font-size:2.2rem}
+  .craft-media img{height:280px}
+  .athlete-photo img{height:340px}
+  .athlete-copy blockquote{font-size:1.15rem;padding-left:.9rem}
+  .champ-pick{padding:.6rem}
+  .champ-pick b{font-size:.88rem}
+  .ticket{padding:1.4rem;box-shadow:8px 8px 0 #1C1510}
+  .access-perks b{font-size:1rem}
+  .foot-top{gap:1.6rem}
+  .socials a{padding:.5rem .85rem}
+  .sticky-shop{left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));padding:.7rem .8rem .7rem 1rem}
+  .sticky-shop b{font-size:.88rem}
+  .sticky-shop em{padding:.7rem .9rem;font-size:.72rem}
+  .menu-nav a span{font-size:clamp(1.7rem,9vw,2rem)}
+  .search-box input{font-size:clamp(1.7rem,9vw,2rem)}
+  .size-table{font-size:.82rem}
+  .toast{bottom:calc(4.8rem + env(safe-area-inset-bottom));font-size:.82rem;padding:.8rem 1.2rem}
+}
+
+/* ultra-small: 360-380px devices */
+@media(max-width:380px){
+  .nav-main{padding:.6rem .7rem}
+  .logo{font-size:1rem}
+  .icon-btn{padding:.5rem .65rem;font-size:.65rem}
+  .nav-right{gap:.4rem}
+  .announce{font-size:.6rem;letter-spacing:.12em;padding:.5rem .6rem}
+  .hero-grid{padding:6rem 4vw 1rem}
+  .arch{height:340px}
+  .hero-ctas .btn{padding:.9rem 1rem}
+  .timer b{font-size:1.2rem}
+  .timer span{font-size:.6rem;letter-spacing:.12em}
+  .p-media{height:320px}
+  .ticket-row{flex-direction:column}
+  .ticket-row .btn{width:100%}
+  .craft-stats{gap:1.2rem}
+  .craft-stats b{font-size:1.8rem}
+  .foot-base{font-size:.68rem}
+}
+
+/* touch: bigger thumbs, no hover transforms */
+@media(pointer:coarse){
+  .fig-thumbs button{width:44px;height:44px}
+  .product:hover,.drop-card:hover,.serie-card:hover{transform:none}
+  .product:hover .p-media img{transform:none}
+}
+
+/* large screens: contain, don't stretch */
+@media(min-width:1600px){
+  .hero-grid,.drop-grid,.products,.craft-sticky,.athlete-grid{max-width:1500px}
+  .hero-title{font-size:8.2rem}
+}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  .marquee-track,.noise,.hero-badge svg,.ticket::after{animation:none!important}
+  .hero-ember,.hero-spot,.access-glow{display:none}
+}
+
+/* ===== ROUND 18: PHONE HERO + ACCESS RESCUE (stays last — re-asserts stacking) ===== */
+.access-inner h2 .wd{display:inline-block;white-space:nowrap}
+.arch-bottom>div{display:flex;flex-direction:column;gap:.2rem}
+.hero-sub b{color:var(--volt)}
+@media(max-width:1000px){
+  .hero-grid{grid-template-columns:1fr}
+  .drop-grid{grid-template-columns:1fr}
+  .products{grid-template-columns:1fr 1fr}
+  .perks{grid-template-columns:1fr 1fr}
+  .craft-sticky,.athlete-grid{grid-template-columns:1fr}
+  .access-grid{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr 1fr}
+  .hero-visual{min-height:0}
+}
+@media(max-width:640px){
+  .products,.perks,.access-perks{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr}
+  .hero-grid{padding-top:8rem}
+  /* dock hero cards below the figure instead of overlapping it */
+  .hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;padding-bottom:0;align-items:stretch}
+  .arch-wrap{grid-column:1/-1;justify-self:center;width:100%;max-width:420px;margin-bottom:1.2rem}
+  .arch-wrap .arch-ring,.arch-wrap .arch-solid{display:none}
+  .fig-cap{position:static;margin-top:.7rem}
+  .arch{width:100%}
+  .arch-wrap .arch-ring{transform:translate(10px,10px)}
+  .arch-wrap .arch-solid{transform:translate(-10px,10px)}
+  .fig-num{font-size:4rem;top:-22px}
+  .hero-card{position:static;transform:none;width:auto}
+  .card-fabric{display:flex;gap:.6rem;align-items:center;padding:.6rem}
+  .card-fabric img{width:64px;height:64px;flex-shrink:0}
+  .card-fabric div{padding:0}
+  .card-seal{transform:none;display:flex;flex-direction:column;justify-content:center}
+  .arch-top{overflow:hidden;text-overflow:ellipsis}
+  /* toast must fully hide */
+  .toast{transform:translate(-50%,300%);visibility:hidden}
+  .toast.show{transform:translate(-50%,0);visibility:visible}
+  /* access */
+  .ticket-stub{flex-wrap:wrap}
+  .sticky-shop.show.hide{transform:translateY(140%)}
+}
+@media(max-width:480px){
+  .arch{height:380px}
+  .arch-bottom{flex-direction:column;align-items:stretch}
+  .arch-price{align-self:flex-start}
+}
+@media(max-width:380px){
+  .hero-visual{grid-template-columns:1fr}
+}
+/* ===== ROUND 17: FAQ-SAFE + ULTRA-SMALL LEFTOVERS ===== */
+@media(max-width:640px){
+  .ticket{box-shadow:8px 8px 0 #1C1510}
+  .faq-a>p{padding-left:.2rem;padding-right:.2rem}
+  .faq-item.open .faq-a>p{padding-bottom:1.4rem}
+  .size-table td{white-space:normal;word-break:break-word}
+}
+@media(max-width:480px){
+  .access-inner h2 em{white-space:normal}
+  .cart-item{flex-wrap:nowrap}
+  .cart-item .row{flex-wrap:wrap;gap:.5rem}
 }
